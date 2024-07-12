@@ -1,5 +1,7 @@
 ## Serial Monitor
-This is a lightweight app for monitoring incoming serial port data. Designed around monitoring the output of microcontrollers such as Arduino or ESP32, etc. Its main feature is configurable syntax coloring to help visualize events of interest. It's also meant to run for long periods of time (weeks to months) with large amounts of data without bogging app system down.
+This is a lightweight app for monitoring incoming serial port data. Designed around monitoring the output of microcontrollers such as Arduino or ESP32, etc.
+
+Its main feature is configurable syntax coloring to help visualize events of interest. It's also meant to run for long periods of time (weeks to months) with large amounts of data without bogging the app or system down.
 
 ## Project Status
 ![alpha](https://img.shields.io/badge/status-alpha-blue)
