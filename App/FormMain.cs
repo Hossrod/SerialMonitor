@@ -1,12 +1,6 @@
-using System.IO.Ports;
-using System.Runtime.InteropServices;
-using System.Text.RegularExpressions;
-using System.Windows.Forms;
-using System.Xml.Serialization;
-using System.Drawing;
-using System.IO;
-using static SerialMonitor.FormMain;
 using SerialMonitor.Properties;
+using System.IO.Ports;
+using System.Xml.Serialization;
 
 namespace SerialMonitor
 {
@@ -15,6 +9,9 @@ namespace SerialMonitor
         private SerialPort serialPort;
         private AppSettings appSettings;
 
+        /// <summary>
+        /// Initializes a new instance of the FormMain class.
+        /// </summary>
         public FormMain()
         {
             InitializeComponent();
@@ -41,6 +38,9 @@ namespace SerialMonitor
             UpdateMonitorAppearance();
         }
 
+        /// <summary>
+        /// Handles the DataReceived event of the SerialPort object.
+        /// </summary>
         private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             if (serialPort.IsOpen)
@@ -130,6 +130,9 @@ namespace SerialMonitor
             rtb.SelectionColor = rtb.ForeColor;
         }
 
+        /// <summary>
+        /// Loads the application settings from a file.
+        /// </summary>
         private void LoadSettings()
         {
             // Load settings from a file (e.g., XML)
@@ -161,6 +164,9 @@ namespace SerialMonitor
             }
         }
 
+        /// <summary>
+        /// Saves the application settings to a file.
+        /// </summary>
         private void SaveSettings()
         {
             var serializer = new XmlSerializer(typeof(AppSettings));
@@ -170,12 +176,19 @@ namespace SerialMonitor
             }
         }
 
+        /// <summary>
+        /// Handles the FormClosing event of the MainForm object.
+        /// </summary>
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             // Clean up: close the serial port when the form is closing
             serialPort.Close();
         }
 
+        /// <summary>
+        /// Represents the application settings for the SerialMonitor application.
+        /// This class is serializable, allowing the settings to be easily saved and loaded.
+        /// </summary>
         [Serializable]
         public class AppSettings
         {
@@ -228,6 +241,9 @@ namespace SerialMonitor
             }
         }
 
+        /// <summary>
+        /// Handles the Click event of the settingsButton object.
+        /// </summary>
         private void settingsButton_Click(object sender, EventArgs e)
         {
             FormSettings settingsForm = new()
