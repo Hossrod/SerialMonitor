@@ -251,24 +251,6 @@ namespace SerialMonitor
         /// </summary>
         private void settingsButton_Click(object sender, EventArgs e)
         {
-            //FormSettings settingsForm = new()
-            //{
-            //    TerminalBGColor = appSettings.MonitorBackColor,
-            //    TerminalFontColor = appSettings.MonitorFontColor,
-            //    TerminalFont = appSettings.MonitorFont
-            //};
-            //var result = settingsForm.ShowDialog();
-
-            //if (result == DialogResult.OK)
-            //{
-            //    appSettings.MonitorBackColor = settingsForm.TerminalBGColor;
-            //    appSettings.MonitorFontColor = settingsForm.TerminalFontColor;
-            //    appSettings.MonitorFont = settingsForm.TerminalFont;
-            //    UpdateMonitorAppearance();
-            //    SaveSettings();
-            //    settingsForm.Close();
-            //}
-
             using (FormSettings settingsForm = new FormSettings
             {
                 TerminalBGColor = appSettings.MonitorBackColor,
@@ -397,19 +379,32 @@ namespace SerialMonitor
     /// </summary>
     class FormatRule
     {
-        public string SearchTerm { get; }
-        public Color TermColor { get; }
-        public bool CaseSensitive { get; }
+        /// <summary>
+        /// Gets the search term for the format rule.
+        /// </summary>
+        public string SearchTerm { get; private set; }
 
-        public FormatRule(string searchTerm, Color termColor, bool caseSensitive) : this(searchTerm, termColor)
-        {
-            CaseSensitive = caseSensitive;
-        }
+        /// <summary>
+        /// Gets the color to be used for the search term in the format rule.
+        /// </summary>
+        public Color TermColor { get; private set; }
 
-        public FormatRule(string searchTerm, Color termColor)
+        /// <summary>
+        /// Gets a value indicating whether the search term is case sensitive.
+        /// </summary>
+        public bool CaseSensitive { get; private set; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FormatRule"/> class.
+        /// </summary>
+        /// <param name="searchTerm">The search term for the format rule.</param>
+        /// <param name="termColor">The color to be used for the search term.</param>
+        /// <param name="caseSensitive">A value indicating whether the search term is case sensitive.</param>
+        public FormatRule(string searchTerm, Color termColor, bool caseSensitive = false)
         {
             SearchTerm = searchTerm;
             TermColor = termColor;
+            CaseSensitive = caseSensitive;
         }
     }
 }
