@@ -203,26 +203,15 @@ namespace SerialMonitor
             [XmlIgnore]
             public Color MonitorBackColor
             {
-                get
-                {
-                    return ColorTranslator.FromHtml(MonitorBackColorHTML);
-                }
-                set
-                {
-                    MonitorBackColorHTML = ColorTranslator.ToHtml(value);
-                }
+                get => HtmlToColor(MonitorBackColorHTML);
+                set => MonitorBackColorHTML = ColorToHtml(value);
             }
+
             [XmlIgnore]
             public Color MonitorFontColor
             {
-                get
-                {
-                    return ColorTranslator.FromHtml(MonitorFontColorHTML);
-                }
-                set
-                {
-                    MonitorFontColorHTML = ColorTranslator.ToHtml(value);
-                }
+                get => HtmlToColor(MonitorFontColorHTML);
+                set => MonitorFontColorHTML = ColorToHtml(value);
             }
 
             [XmlIgnore]
@@ -238,6 +227,22 @@ namespace SerialMonitor
                     MonitorFontSize = value.Size;
                     MonitorFontStyle = value.Style;
                 }
+            }
+
+            /// <summary>
+            /// Converts an HTML color string to a Color object.
+            /// </summary>
+            private static Color HtmlToColor(string htmlColor)
+            {
+                return ColorTranslator.FromHtml(htmlColor);
+            }
+
+            /// <summary>
+            /// Converts a Color object to an HTML color string.
+            /// </summary>
+            private static string ColorToHtml(Color color)
+            {
+                return ColorTranslator.ToHtml(color);
             }
         }
 
