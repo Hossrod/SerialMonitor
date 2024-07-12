@@ -251,22 +251,44 @@ namespace SerialMonitor
         /// </summary>
         private void settingsButton_Click(object sender, EventArgs e)
         {
-            FormSettings settingsForm = new()
+            //FormSettings settingsForm = new()
+            //{
+            //    TerminalBGColor = appSettings.MonitorBackColor,
+            //    TerminalFontColor = appSettings.MonitorFontColor,
+            //    TerminalFont = appSettings.MonitorFont
+            //};
+            //var result = settingsForm.ShowDialog();
+
+            //if (result == DialogResult.OK)
+            //{
+            //    appSettings.MonitorBackColor = settingsForm.TerminalBGColor;
+            //    appSettings.MonitorFontColor = settingsForm.TerminalFontColor;
+            //    appSettings.MonitorFont = settingsForm.TerminalFont;
+            //    UpdateMonitorAppearance();
+            //    SaveSettings();
+            //    settingsForm.Close();
+            //}
+
+            using (FormSettings settingsForm = new FormSettings
             {
                 TerminalBGColor = appSettings.MonitorBackColor,
                 TerminalFontColor = appSettings.MonitorFontColor,
                 TerminalFont = appSettings.MonitorFont
-            };
-            var result = settingsForm.ShowDialog();
-
-            if (result == DialogResult.OK)
+            })
             {
-                appSettings.MonitorBackColor = settingsForm.TerminalBGColor;
-                appSettings.MonitorFontColor = settingsForm.TerminalFontColor;
-                appSettings.MonitorFont = settingsForm.TerminalFont;
-                UpdateMonitorAppearance();
-                SaveSettings();
-                settingsForm.Close();
+                var result = settingsForm.ShowDialog();
+
+                if (result == DialogResult.OK &&
+                    (appSettings.MonitorBackColor != settingsForm.TerminalBGColor ||
+                    appSettings.MonitorFontColor != settingsForm.TerminalFontColor ||
+                    appSettings.MonitorFont != settingsForm.TerminalFont))
+                {
+                    appSettings.MonitorBackColor = settingsForm.TerminalBGColor;
+                    appSettings.MonitorFontColor = settingsForm.TerminalFontColor;
+                    appSettings.MonitorFont = settingsForm.TerminalFont;
+                    UpdateMonitorAppearance();
+                    SaveSettings();
+                }
             }
         }
 
