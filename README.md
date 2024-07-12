@@ -20,6 +20,7 @@ _Note, this is a personal app that I designed for my specific needs and not nece
 	- [ ] Flashing background
 	- [ ] Text mobile device (or other mobile alert solution)
 - [ ] Ability to search/highlight and jump to contents in the console
+- [ ] Increase test coverage and general code cleanup and commenting
 
 ## Tech
 This is a C# .NET Windows Form app written in Visual Studio 2022 with nUnit for test cases. Simply download/clone the repository and build it in VS. Should run in Windows 7 and up.
