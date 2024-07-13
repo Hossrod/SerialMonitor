@@ -377,7 +377,7 @@ namespace SerialMonitor
     /// <summary>
     /// A rule for formatting text based on a search term. 
     /// </summary>
-    public class FormatRule
+    class FormatRule
     {
         /// <summary>
         /// Gets the search term for the format rule.
