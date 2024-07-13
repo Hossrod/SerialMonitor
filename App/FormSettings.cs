@@ -1,65 +1,55 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-
-namespace SerialMonitor
+﻿namespace SerialMonitor
 {
     public partial class FormSettings : Form
     {
+        /// <summary>
+        /// Gets or sets the background color of the terminal.
+        /// </summary>
         public Color TerminalBGColor { get; set; }
+
+        /// <summary>
+        /// Gets or sets the font color of the terminal.
+        /// </summary>
         public Color TerminalFontColor { get; set; }
+
+        /// <summary>
+        /// Gets or sets the font of the terminal.
+        /// </summary>
         public Font TerminalFont { get; set; }
 
+        /// <summary>
+        /// Initializes a new instance of the FormSettings class.
+        /// </summary>
         public FormSettings()
         {
             InitializeComponent();
             Shown += FormSettings_Shown;
         }
 
+        /// <summary>
+        /// Handles the click event of the TerminalBGColorPreview control.
+        /// </summary>
         private void TerminalBGColorPreview_Click(object sender, EventArgs e)
         {
-            ColorDialog colorDlg = new()
-            {
-                AllowFullOpen = true,
-                AnyColor = true,
-                SolidColorOnly = false,
-                Color = TerminalBGColor
-            };
-
-            if (colorDlg.ShowDialog() == DialogResult.OK)
-            {
-                TerminalBGColor = colorDlg.Color;
-                UpdatePreviews();
-            }
+            TerminalBGColor = GetColorFromDialog(TerminalBGColor);
+            UpdatePreviews();
         }
 
+        /// <summary>
+        /// Handles the click event of the TerminalFontColorPreview control.
+        /// </summary>
         private void TerminalFontColorPreview_Click(object sender, EventArgs e)
         {
-            ColorDialog colorDlg = new()
-            {
-                AllowFullOpen = true,
-                AnyColor = true,
-                SolidColorOnly = false,
-                Color = TerminalFontColor
-            };
-
-            if (colorDlg.ShowDialog() == DialogResult.OK)
-            {
-                TerminalFontColor = colorDlg.Color;
-                UpdatePreviews();
-            }
+            TerminalFontColor = GetColorFromDialog(TerminalFontColor);
+            UpdatePreviews();
         }
 
+        /// <summary>
+        /// Handles the LinkClicked event of the TerminalFontLink control.
+        /// </summary>
         private void TerminalFontLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            FontDialog fontDlg = new()
+            using FontDialog fontDlg = new()
             {
                 FontMustExist = true,
                 FixedPitchOnly = true,
@@ -67,7 +57,6 @@ namespace SerialMonitor
                 AllowScriptChange = false,
                 Font = TerminalFont
             };
-
             if (fontDlg.ShowDialog() == DialogResult.OK)
             {
                 TerminalFontLink.Text = fontDlg.Font.Name;
@@ -76,21 +65,47 @@ namespace SerialMonitor
             }
         }
 
+        /// <summary>
+        /// Handles the Shown event of the FormSettings form.
+        /// </summary>
         private void FormSettings_Shown(object? sender, EventArgs e)
         {
             UpdatePreviews();
         }
 
+        /// <summary>
+        /// Handles the click event of the SaveButton control.
+        /// </summary>
         private void SaveButton_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
 
+        /// <summary>
+        /// Handles the click event of the CancelButton control.
+        /// </summary>
         private void CancelButton_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
             this.Close();
+        }
+
+        /// <summary>
+        /// Opens a color dialog and returns the selected color.
+        /// </summary>
+        /// <param name="currentColor">The initial color selected in the dialog.</param>
+        /// <returns>The color selected by the user, or the initial color if the user cancels the dialog.</returns>
+        private Color GetColorFromDialog(Color currentColor)
+        {
+            using ColorDialog colorDlg = new()
+            {
+                AllowFullOpen = true,
+                AnyColor = true,
+                SolidColorOnly = false,
+                Color = currentColor
+            };
+            return colorDlg.ShowDialog() == DialogResult.OK ? colorDlg.Color : currentColor;
         }
 
         /// <summary>
